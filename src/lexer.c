@@ -1,19 +1,17 @@
 #include "lexer.h"
+#include "tokens.h"
 #include "utils.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 Queue *read_tokens(char *input) {
-  Queue *tokens_q = malloc(sizeof(struct Queue));
+  int q_size = 512;
+  Queue *tokens_q = malloc(sizeof(Queue) + q_size * sizeof(int));
   if (tokens_q == NULL) {
     perror("bluemark: ");
   }
-  queue_init(tokens_q);
-
-  queue_enqueue(tokens_q, HTML_TAG);
-  queue_enqueue(tokens_q, BRACE_OPEN);
-  queue_enqueue(tokens_q, BRACE_CLOSE);
+  queue_init(tokens_q, q_size);
 
   // bool reading_str = false;
   //

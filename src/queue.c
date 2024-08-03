@@ -1,13 +1,14 @@
 #include "queue.h"
 
-void queue_init(Queue *q) {
+void queue_init(Queue *q, int size) {
   q->front = -1;
   q->back = 0;
+  q->size = size;
 }
 
 bool queue_is_empty(Queue *q) { return q->front == q->back - 1; }
 
-bool queue_is_full(Queue *q) { return q->back == QUEUE_MAX_SIZE; }
+bool queue_is_full(Queue *q) { return q->back == q->size; }
 
 void queue_enqueue(Queue *q, int value) {
   if (queue_is_full(q)) {

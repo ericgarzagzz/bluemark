@@ -1,4 +1,6 @@
 #include "lexer.h"
+#include "tokens.h"
+#include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,6 +47,9 @@ int main(int argc, char **argv) {
   fclose(file);
 
   buff[fsize] = 0;
+
+  str_replace(buff, '\n', ' ');
+  str_replace(buff, '\r', ' ');
 
   Queue *tokens_q = read_tokens(buff);
 
