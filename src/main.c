@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   str_replace(buff, '\n', ' ');
   str_replace(buff, '\r', ' ');
 
-  Queue *tokens_q = read_tokens(buff);
+  Queue *tokens_q = lexer_parse(buff);
 
   while (!queue_is_empty(tokens_q)) {
     Token token = queue_peek(tokens_q);

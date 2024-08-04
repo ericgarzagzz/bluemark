@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-Queue *read_tokens(char *input) {
+Queue *lexer_parse(char *input) {
   int q_size = 512;
   Queue *tokens_q = malloc(sizeof(Queue) + q_size * sizeof(int));
   if (tokens_q == NULL) {
