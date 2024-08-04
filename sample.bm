@@ -4,8 +4,7 @@ Html {
             "Example Domain"
         }
 
-        Meta[http-equiv="Content-type", content="text/html; charset=utf-8"]
-        Meta[name="viewport", content="width=device-width, initial-scale=1"]
+        Meta
     }
 
     Body {
@@ -21,7 +20,7 @@ Html {
             }
             
             P {
-                A[href="https://www.iana.org/domains/example"] {
+                A {
                     "More information..."
                 }
             }
