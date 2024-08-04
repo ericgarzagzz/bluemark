@@ -1,5 +1,4 @@
 #include "lexer.h"
-#include "tokens.h"
 #include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,8 +53,9 @@ int main(int argc, char **argv) {
   Queue *tokens_q = lexer_parse(buff);
 
   while (!queue_is_empty(tokens_q)) {
-    Token token = queue_peek(tokens_q);
-    printf("Token: <%d>\n", token);
+    ParsedToken *token = queue_peek(tokens_q);
+    printf("Token: <%d> Pos: <%d, %d> Value: <%s>\n", token->token,
+           token->start_position, token->end_position, token->value);
     queue_dequeue(tokens_q);
   }
 

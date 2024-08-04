@@ -1,4 +1,5 @@
 #include "tokens.h"
+#include <stdlib.h>
 #include <string.h>
 
 enum Token token_identify(const char *str) {
@@ -32,7 +33,20 @@ enum Token token_identify(const char *str) {
     return TOKEN_PARENTHESIS_OPEN;
   } else if (strcmp(str, ")") == 0) {
     return TOKEN_PARENTHESIS_CLOSE;
+  } else if (strcmp(str, "\"") == 0) {
+    return TOKEN_DOUBLEQUOTE;
+  } else if (strcmp(str, "'") == 0) {
+    return TOKEN_QUOTE;
   }
 
   return TOKEN_UNRECOGNIZED;
+}
+
+ParsedToken *parsed_token_alloc(enum Token token, int start_pos, int end_pos) {
+  ParsedToken *pt = malloc(sizeof(ParsedToken));
+  pt->token = token;
+  pt->start_position = start_pos;
+  pt->end_position = end_pos;
+  pt->value[0] = '\0';
+  return pt;
 }

@@ -1,20 +1,31 @@
 typedef enum Token {
-  TOKEN_HTML_TAG,
-  TOKEN_HEAD_TAG,
-  TOKEN_BODY_TAG,
-  TOKEN_TITLE_TAG,
-  TOKEN_META_TAG,
-  TOKEN_DIV_TAG,
-  TOKEN_H1_TAG,
-  TOKEN_P_TAG,
-  TOKEN_A_TAG,
-  TOKEN_BRACKET_OPEN,
-  TOKEN_BRACKET_CLOSE,
-  TOKEN_BRACE_OPEN,
-  TOKEN_BRACE_CLOSE,
-  TOKEN_PARENTHESIS_OPEN,
-  TOKEN_PARENTHESIS_CLOSE,
-  TOKEN_UNRECOGNIZED
+  TOKEN_HTML_TAG = 0,
+  TOKEN_HEAD_TAG = 1,
+  TOKEN_BODY_TAG = 2,
+  TOKEN_TITLE_TAG = 3,
+  TOKEN_META_TAG = 4,
+  TOKEN_DIV_TAG = 5,
+  TOKEN_H1_TAG = 6,
+  TOKEN_P_TAG = 7,
+  TOKEN_A_TAG = 8,
+  TOKEN_BRACKET_OPEN = 9,
+  TOKEN_BRACKET_CLOSE = 10,
+  TOKEN_BRACE_OPEN = 11,
+  TOKEN_BRACE_CLOSE = 12,
+  TOKEN_PARENTHESIS_OPEN = 13,
+  TOKEN_PARENTHESIS_CLOSE = 14,
+  TOKEN_DOUBLEQUOTE = 15,
+  TOKEN_QUOTE = 16,
+  TOKEN_STRING = 17,
+  TOKEN_UNRECOGNIZED = 18
 } Token;
 
+typedef struct {
+  enum Token token;
+  int start_position;
+  int end_position;
+  char value[2048];
+} ParsedToken;
+
 enum Token token_identify(const char *str);
+ParsedToken *parsed_token_alloc(enum Token token, int start_pos, int end_pos);
