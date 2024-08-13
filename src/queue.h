@@ -1,3 +1,6 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include "tokens.h"
 #include <stdbool.h>
 
@@ -14,3 +17,5 @@ bool queue_is_full(Queue *q);
 void queue_enqueue(Queue *q, ParsedToken *value);
 void queue_dequeue(Queue *q);
 ParsedToken *queue_peek(Queue *q);
+
+#endif

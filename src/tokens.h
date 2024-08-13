@@ -1,3 +1,6 @@
+#ifndef TOKENS_H
+#define TOKENS_H
+
 typedef enum Token {
   TOKEN_HTML_TAG = 0,
   TOKEN_HEAD_TAG = 1,
@@ -29,3 +32,5 @@ typedef struct {
 
 enum Token token_identify(const char *str);
 ParsedToken *parsed_token_alloc(enum Token token, int start_pos, int end_pos);
+
+#endif
