@@ -4,18 +4,20 @@
 #include "tokens.h"
 #include <stdbool.h>
 
-typedef struct {
+struct queue {
   int front;
   int back;
   int size;
-  ParsedToken *items[];
-} Queue;
+  parsed_token_t *items[];
+};
 
-void queue_init(Queue *q, int size);
-bool queue_is_empty(Queue *q);
-bool queue_is_full(Queue *q);
-void queue_enqueue(Queue *q, ParsedToken *value);
-void queue_dequeue(Queue *q);
-ParsedToken *queue_peek(Queue *q);
+typedef struct queue queue_t;
+
+void queue_init(queue_t *q, int size);
+bool queue_is_empty(queue_t *q);
+bool queue_is_full(queue_t *q);
+void queue_enqueue(queue_t *q, parsed_token_t *value);
+void queue_dequeue(queue_t *q);
+parsed_token_t *queue_peek(queue_t *q);
 
 #endif

@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "parser.h"
+#include "queue.h"
 #include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,13 +52,13 @@ int main(int argc, char **argv) {
   str_replace(buff, '\n', ' ');
   str_replace(buff, '\r', ' ');
 
-  Queue *tokens_q = lexer_parse(buff); 
+  queue_t *tokens_q = lexer_parse(buff); 
   free(buff);
 
-  ASTNode *ast_root_node = parser_parse(tokens_q);
+  ast_node_t *ast_root_node = parser_parse(tokens_q);
 
   for (int i = 0; i < ast_root_node->children_size; i++) {
-    ASTNode *child = ast_root_node->children[i];
+    ast_node_t *child = ast_root_node->children[i];
     printf("%s", child->value->value);
   }
   printf("\n");

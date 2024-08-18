@@ -6,9 +6,9 @@
 #include <string.h>
 #include <utils.h>
 
-Queue *lexer_parse(char *input) {
+queue_t *lexer_parse(char *input) {
   int q_size = 512;
-  Queue *tokens_q = malloc(sizeof(Queue) + q_size * sizeof(ParsedToken));
+  queue_t *tokens_q = malloc(sizeof(queue_t) + q_size * sizeof(parsed_token_t));
   if (tokens_q == NULL) {
     perror("bluemark: ");
   }
@@ -17,7 +17,7 @@ Queue *lexer_parse(char *input) {
   bool reading_str = false;
   char processing_input[strlen(input) + 1];
   processing_input[0] = '\0';
-  ParsedToken **last_token_ref;
+  parsed_token_t **last_token_ref;
   for (int i = 0; i < strlen(input); i++) {
     char current = input[i];
     if (!reading_str && current == ' ') {
@@ -25,20 +25,20 @@ Queue *lexer_parse(char *input) {
     }
     str_append(processing_input, current);
 
-    Token token = token_identify(processing_input);
+    token_t token = token_identify(processing_input);
 
     if (reading_str) {
       if (token == TOKEN_QUOTE || token == TOKEN_DOUBLEQUOTE) {
         int start_pos = (*last_token_ref)->start_position + 1;
         int end_pos = i - 1;
 
-        ParsedToken *pt = parsed_token_alloc(TOKEN_STRING, start_pos, end_pos);
+        parsed_token_t *pt = parsed_token_alloc(TOKEN_STRING, start_pos, end_pos);
         memcpy(pt->value, input + start_pos, end_pos);
         size_t value_len = (end_pos - start_pos) + 1;
         pt->value[value_len] = '\0';
         queue_enqueue(tokens_q, pt);
 
-        ParsedToken *pt2 = parsed_token_alloc(token, i, i);
+        parsed_token_t *pt2 = parsed_token_alloc(token, i, i);
         strcpy(pt2->value, processing_input);
         queue_enqueue(tokens_q, pt2);
 
@@ -54,7 +54,7 @@ Queue *lexer_parse(char *input) {
       }
 
       if (token == TOKEN_QUOTE || token == TOKEN_DOUBLEQUOTE) {
-        ParsedToken *pt = parsed_token_alloc(token, i, i);
+        parsed_token_t *pt = parsed_token_alloc(token, i, i);
         strcpy(pt->value, processing_input);
         queue_enqueue(tokens_q, pt);
         last_token_ref = &pt;
@@ -62,7 +62,7 @@ Queue *lexer_parse(char *input) {
         processing_input[0] = '\0';
       } else {
         int start_pos = i - (strlen(processing_input) - 1);
-        ParsedToken *pt = parsed_token_alloc(token, start_pos, i);
+        parsed_token_t *pt = parsed_token_alloc(token, start_pos, i);
         strcpy(pt->value, processing_input);
         queue_enqueue(tokens_q, pt);
         processing_input[0] = '\0';

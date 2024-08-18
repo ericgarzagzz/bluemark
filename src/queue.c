@@ -1,16 +1,16 @@
 #include "queue.h"
 
-void queue_init(Queue *q, int size) {
+void queue_init(queue_t *q, int size) {
   q->front = -1;
   q->back = 0;
   q->size = size;
 }
 
-bool queue_is_empty(Queue *q) { return q->front == q->back - 1; }
+bool queue_is_empty(queue_t *q) { return q->front == q->back - 1; }
 
-bool queue_is_full(Queue *q) { return q->back == q->size; }
+bool queue_is_full(queue_t *q) { return q->back == q->size; }
 
-void queue_enqueue(Queue *q, ParsedToken *value) {
+void queue_enqueue(queue_t *q, parsed_token_t *value) {
   if (queue_is_full(q)) {
     return;
   }
@@ -19,7 +19,7 @@ void queue_enqueue(Queue *q, ParsedToken *value) {
   q->back++;
 }
 
-void queue_dequeue(Queue *q) {
+void queue_dequeue(queue_t *q) {
   if (queue_is_empty(q)) {
     return;
   }
@@ -27,7 +27,7 @@ void queue_dequeue(Queue *q) {
   q->front++;
 }
 
-ParsedToken *queue_peek(Queue *q) {
+parsed_token_t *queue_peek(queue_t *q) {
   if (queue_is_empty(q)) {
     return 0;
   }

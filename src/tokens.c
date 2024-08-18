@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum Token token_identify(const char *str) {
+token_t token_identify(const char *str) {
   if (strcmp(str, "Html") == 0) {
     return TOKEN_HTML_TAG;
   } else if (strcmp(str, "Head") == 0) {
@@ -42,8 +42,8 @@ enum Token token_identify(const char *str) {
   return TOKEN_UNRECOGNIZED;
 }
 
-ParsedToken *parsed_token_alloc(enum Token token, int start_pos, int end_pos) {
-  ParsedToken *pt = malloc(sizeof(ParsedToken));
+parsed_token_t *parsed_token_alloc(token_t token, int start_pos, int end_pos) {
+  parsed_token_t *pt = malloc(sizeof(parsed_token_t));
   pt->token = token;
   pt->start_position = start_pos;
   pt->end_position = end_pos;

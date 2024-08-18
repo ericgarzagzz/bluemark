@@ -2,17 +2,17 @@
 
 #define AST_CHILDREN_CAPACITY 128
 
-struct _ASTNode {
-  struct _ASTNode *parent;
-  ParsedToken *value;
+struct ast_node {
+  struct ast_node *parent;
+  parsed_token_t *value;
   int children_size;
   int children_capacity;
-  struct _ASTNode *children[];
+  struct ast_node *children[];
 };
 
-typedef struct _ASTNode ASTNode;
+typedef struct ast_node ast_node_t;
 
-ASTNode *ast_alloc();
-ASTNode *ast_get_root(ASTNode *node);
-void ast_append_children(ASTNode *parent, ASTNode *children);
-ASTNode *ast_append_children_value(ASTNode *parent, ParsedToken* children_value);
+ast_node_t *ast_alloc();
+ast_node_t *ast_get_root(ast_node_t *node);
+void ast_append_children(ast_node_t *parent, ast_node_t *children);
+ast_node_t *ast_append_children_value(ast_node_t *parent, parsed_token_t *children_value);
