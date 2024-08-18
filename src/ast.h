@@ -2,15 +2,13 @@
 
 #define AST_CHILDREN_CAPACITY 128
 
-struct ast_node {
+typedef struct ast_node {
   struct ast_node *parent;
   parsed_token_t *value;
   int children_size;
   int children_capacity;
   struct ast_node *children[];
-};
-
-typedef struct ast_node ast_node_t;
+} ast_node_t;
 
 ast_node_t *ast_alloc();
 ast_node_t *ast_get_root(ast_node_t *node);

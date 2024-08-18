@@ -1,7 +1,7 @@
 #ifndef TOKENS_H
 #define TOKENS_H
 
-enum token {
+typedef enum token {
   TOKEN_HTML_TAG = 0,
   TOKEN_HEAD_TAG = 1,
   TOKEN_BODY_TAG = 2,
@@ -21,18 +21,14 @@ enum token {
   TOKEN_QUOTE = 16,
   TOKEN_STRING = 17,
   TOKEN_UNRECOGNIZED = 18
-};
+} token_t;
 
-typedef enum token token_t;
-
-struct parsed_token {
+typedef struct parsed_token {
   token_t token;
   int start_position;
   int end_position;
   char value[2048];
-};
-
-typedef struct parsed_token parsed_token_t;
+} parsed_token_t;
 
 token_t token_identify(const char *str);
 parsed_token_t *parsed_token_alloc(token_t token, int start_pos, int end_pos);

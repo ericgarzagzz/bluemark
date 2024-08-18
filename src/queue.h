@@ -4,14 +4,12 @@
 #include "tokens.h"
 #include <stdbool.h>
 
-struct queue {
+typedef struct queue {
   int front;
   int back;
   int size;
   parsed_token_t *items[];
-};
-
-typedef struct queue queue_t;
+} queue_t;
 
 void queue_init(queue_t *q, int size);
 bool queue_is_empty(queue_t *q);
