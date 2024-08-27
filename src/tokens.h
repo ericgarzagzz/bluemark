@@ -31,6 +31,6 @@ typedef struct parsed_token {
 } parsed_token_t;
 
 token_t token_identify(const char *str);
-parsed_token_t *parsed_token_alloc(token_t token, int start_pos, int end_pos);
+void parsed_token_init(parsed_token_t *self);
 
 #endif

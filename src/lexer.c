@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "tokens.h"
 #include "util.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -32,13 +33,23 @@ queue_t *lexer_parse(char *input) {
         int start_pos = (*last_token_ref)->start_position + 1;
         int end_pos = i - 1;
 
-        parsed_token_t *pt = parsed_token_alloc(TOKEN_STRING, start_pos, end_pos);
+        parsed_token_t *pt = malloc(sizeof(parsed_token_t));
+        parsed_token_init(pt);
+        pt->token = TOKEN_STRING;
+        pt->start_position = start_pos;
+        pt->end_position = end_pos;
+
         memcpy(pt->value, input + start_pos, end_pos);
         size_t value_len = (end_pos - start_pos) + 1;
         pt->value[value_len] = '\0';
         queue_enqueue(tokens_q, pt);
 
-        parsed_token_t *pt2 = parsed_token_alloc(token, i, i);
+        parsed_token_t *pt2 = malloc(sizeof(parsed_token_t));
+        parsed_token_init(pt2);
+        pt2->token = token;
+        pt2->start_position = i;
+        pt2->end_position = i;
+
         strcpy(pt2->value, processing_input);
         queue_enqueue(tokens_q, pt2);
 
@@ -54,7 +65,12 @@ queue_t *lexer_parse(char *input) {
       }
 
       if (token == TOKEN_QUOTE || token == TOKEN_DOUBLEQUOTE) {
-        parsed_token_t *pt = parsed_token_alloc(token, i, i);
+        parsed_token_t *pt = malloc(sizeof(parsed_token_t));
+        parsed_token_init(pt);
+        pt->token = token;
+        pt->start_position = i;
+        pt->end_position = i;
+
         strcpy(pt->value, processing_input);
         queue_enqueue(tokens_q, pt);
         last_token_ref = &pt;
@@ -62,7 +78,12 @@ queue_t *lexer_parse(char *input) {
         processing_input[0] = '\0';
       } else {
         int start_pos = i - (strlen(processing_input) - 1);
-        parsed_token_t *pt = parsed_token_alloc(token, start_pos, i);
+        parsed_token_t *pt = malloc(sizeof(parsed_token_t));
+        parsed_token_init(pt);
+        pt->token = token;
+        pt->start_position = start_pos;
+        pt->end_position = i;
+
         strcpy(pt->value, processing_input);
         queue_enqueue(tokens_q, pt);
         processing_input[0] = '\0';

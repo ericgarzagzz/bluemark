@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
   str_replace(buff, '\n', ' ');
   str_replace(buff, '\r', ' ');
 
-  queue_t *tokens_q = lexer_parse(buff); 
+  queue_t *tokens_q = lexer_parse(buff);
   free(buff);
 
   ast_node_t *ast_root_node = parser_parse(tokens_q);

@@ -1,5 +1,4 @@
 #include "tokens.h"
-#include <stdlib.h>
 #include <string.h>
 
 token_t token_identify(const char *str) {
@@ -42,11 +41,6 @@ token_t token_identify(const char *str) {
   return TOKEN_UNRECOGNIZED;
 }
 
-parsed_token_t *parsed_token_alloc(token_t token, int start_pos, int end_pos) {
-  parsed_token_t *pt = malloc(sizeof(parsed_token_t));
-  pt->token = token;
-  pt->start_position = start_pos;
-  pt->end_position = end_pos;
-  pt->value[0] = '\0';
-  return pt;
+void parsed_token_init(parsed_token_t *self) {
+  memset(self, 0, sizeof(parsed_token_t));
 }
