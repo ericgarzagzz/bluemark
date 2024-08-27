@@ -57,11 +57,9 @@ int main(int argc, char **argv) {
 
   ast_node_t *ast_root_node = parser_parse(tokens_q);
 
-  for (int i = 0; i < ast_root_node->children_size; i++) {
-    ast_node_t *child = ast_root_node->children[i];
-    printf("%s", child->value->value);
-  }
-  printf("\n");
+  printf("START Printing AST...\n");
+  ast_print(ast_root_node, 0);
+  printf("END Printing AST...\n");
 
   free(tokens_q);
   free(ast_root_node);

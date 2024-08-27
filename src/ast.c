@@ -1,4 +1,5 @@
 #include "ast.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -39,6 +40,21 @@ ast_node_t *ast_append_children_value(ast_node_t *self, parsed_token_t* value) {
   ast_append_children(self, children);
 
   return children;
+}
+
+void ast_print(ast_node_t *node, int depth) {
+  if (node == NULL) {
+    return;
+  }
+
+  for (int i = 0; i < depth; i++) {
+    printf("  ");
+  }
+  printf("%s\n", node->value->value);
+
+  for (int i = 0; i < node->children_size; i++) {
+    ast_print(node->children[i], depth + 1);
+  }
 }
 
 ast_node_t *ast_realloc_children(ast_node_t *self) {
